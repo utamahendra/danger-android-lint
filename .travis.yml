@@ -12,6 +12,11 @@ licenses:
   - android-sdk-preview-license-c81a61d9
   - android-sdk-license-.+
   - google-gdk-license-.+
+before_install:
+  - bundle install
+install:
+  - ./gradlew runChecksForDanger
+  - bundle exec danger
 before_script:
   - chmod +x gradlew
 stages:
