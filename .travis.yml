@@ -21,6 +21,8 @@ before_script:
 stages:
   - name: danger scan
     if: type == pull_request
+  - name: build
+    if: type == push AND branch IN (develop, master)
 jobs:
   include:
     - stage: danger scan
@@ -28,6 +30,12 @@ jobs:
         - yes | sdkmanager "platforms;android-29"
         - yes | sdkmanager "build-tools;29.0.3"
         - bundle install
+      script:
+        - bundle exec danger
+    - stage: build
+      before_install:
+          - yes | sdkmanager "platforms;android-29"
+          - yes | sdkmanager "build-tools;29.0.3"
       script:
         - "./gradlew assembleDebug"
 branches:
