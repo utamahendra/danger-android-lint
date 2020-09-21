@@ -24,9 +24,10 @@ stages:
 jobs:
   include:
     - stage: danger scan
-      before_install:
+      install:
         - yes | sdkmanager "platforms;android-29"
         - yes | sdkmanager "build-tools;29.0.3"
+        - bundle install
       script:
         - "./gradlew assembleDebug"
 branches:
